@@ -5,6 +5,7 @@ public class Main {
         int c1 = 10;
         int c2 = 20;
         int soucet = c1 + c2;
+        
         System.out.println("Součet: " + soucet);
         System.out.println(Integer.MAX_VALUE);
         float f1 = 1f;
