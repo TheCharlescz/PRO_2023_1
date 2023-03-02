@@ -1,5 +1,10 @@
 package models;
 
+import java.util.InputMismatchException;
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Zlomek implements JednoCislo {
     private int citatel;
     private int jmenovatel;
@@ -17,8 +22,14 @@ public class Zlomek implements JednoCislo {
         return jmenovatel;
     }
 
-    public static int NejvetsiSpolecnyDelitel(int a, int b) {
-        if (b == 0) return a;
+    public void ZkratitNaZakladniTvar(){
+        int maxD = NejvetsiSpolecnyDelitel(citatel, jmenovatel);
+        citatel /= maxD;
+        jmenovatel /= maxD;
+    }
+
+    public int NejvetsiSpolecnyDelitel(int a, int b){
+        if(b == 0) return a;
         return NejvetsiSpolecnyDelitel(b, a % b);
     }
 
@@ -40,5 +51,50 @@ public class Zlomek implements JednoCislo {
     @Override
     public double getJednoCislo() {
         return citatel / jmenovatel;
+    }
+
+
+    public static Zlomek NactiZlomekZConsole(Scanner input){
+        Integer c = null;
+        while (c == null){
+            try {
+                System.out.println("Zadejte čitatele");
+                c = input.nextInt();
+            }catch (InputMismatchException e){
+                System.out.println("Chybný formát");
+                input.next();
+            }
+        }
+        int j = 0;
+        while (j == 0){
+            try {
+                System.out.println("Zadejte jmenovatele");
+                j = input.nextInt();
+            }catch (InputMismatchException e){
+                System.out.println("Chybný formát");
+                input.next();
+            }
+        }
+        return new Zlomek(c, j);
+    }
+    public static Zlomek NactiZlomekZConsoleVar2(Scanner input){
+        String s;
+        boolean matchFound = false;
+        do{
+            System.out.println("Zadejte zlomek ve formátu čitatel/jmenovatel, například 8/6:");
+            s = input.nextLine();
+
+            Pattern pattern = Pattern.compile("[0-9]/[0-9]", Pattern.CASE_INSENSITIVE);
+            Matcher matcher = pattern.matcher(s);
+            matchFound = matcher.find();
+        }while (!matchFound);
+
+        return Parse(s);
+
+    }
+    public static Zlomek Parse(String s){
+        int c = Integer.parseInt(s.split("/")[0]);
+        int j = Integer.parseInt(s.split("/")[1]);
+        return new Zlomek(c, j);
     }
 }

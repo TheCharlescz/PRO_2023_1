@@ -2,6 +2,9 @@ import models.Cislo;
 import models.Kalkulacka;
 import models.Zlomek;
 
+import java.io.Console;
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
         int c1 = 10;
@@ -82,9 +85,97 @@ public class Main {
         System.out.println("modulo:" + modulo);
 
         Cislo.vypisPocetHvezdicek(5);
-        System.out.println("z1 společný dělitel: " + z1.NejvetsiSpolecnyDelitel(z1.getCitatel(), z1.getJmenovatel()));
+
+        Zlomek z4 = new Zlomek(16, 8);
+        z4.ZkratitNaZakladniTvar();
+        System.out.println("z4: základní tvar: " + z4);
 
         double soucet3 = calc.Soucet(z1, z2);
+
+        // Ukázky pole
+        int[] poleInt = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+        int[] poleInt2 = new int[10];
+        for (int i = 0; i < poleInt2.length; i++) {
+            poleInt2[i] = i;
+        }
+
+        poleInt2[7] = 70;
+
+        for (int i = 0; i < poleInt2.length; i++) {
+            System.out.println("prvek " + i + ": " + poleInt2[i]);
+        }
+
+        double[][] poleDouble2d = {
+                {1, 2, 3},
+                {4, 5, 6, 9},
+                {7},
+        };
+        for (int i = 0; i < poleDouble2d.length; ++i) {
+            for (int j = 0; j < poleDouble2d[i].length; ++j) {
+                System.out.println("[" + i + "][" + j + "]: " + poleDouble2d[i][j]);
+            }
+        }
+        double[][] poleDouble2d2 = new double[4][3];
+        for (int i = 0; i < poleDouble2d2.length; i++) {
+            for (int j = 0; j < poleDouble2d2[i].length; j++) {
+                poleDouble2d2[i][j] = i + j;
+            }
+        }
+        for (int i = 0; i < poleDouble2d2.length; ++i) {
+            for (int j = 0; j < poleDouble2d2[i].length; ++j) {
+                System.out.println("[" + i + "][" + j + "]: " + poleDouble2d2[i][j]);
+            }
+        }
+
+        // do pole lze dávat i objekty
+        String[] poleStringu = {"auto", "motorka", "kolo"};
+
+        Zlomek[] poleZlomku = new Zlomek[4];
+        poleZlomku[0] = new Zlomek(1, 3);
+        poleZlomku[1] = new Zlomek(1, 4);
+        poleZlomku[2] = new Zlomek(1, 5);
+        poleZlomku[3] = new Zlomek(1, 6);
+
+
+        Zlomek zlomekVytazenyZPole = poleZlomku[2];
+
+        if (zlomekVytazenyZPole == poleZlomku[2])    // TRUE
+            System.out.println("Je to stejný objekt");
+
+
+        // řetězce
+        Scanner input = new Scanner(System.in);
+        if (false) {  // změnit na true pro vyzkoušení
+            System.out.println("Zadejte text:");
+            String nactenyText = input.nextLine();
+            System.out.println("Zadali jste: " + nactenyText);
+        }
+
+        if (false) {  // změnit na true pro vyzkoušení
+            System.out.println("Budeme zadávat zlomek.");
+            System.out.println("Zadejte čitatele:");
+            int nactenyCitatel = input.nextInt();
+            System.out.println("Zadejte jmenovatele:");
+            int nactenyJmenovatel = input.nextInt();
+
+            Zlomek zlomek10 = new Zlomek(nactenyCitatel, nactenyJmenovatel);
+            System.out.println("Zadali jste: " + zlomek10);
+        }
+        if (false) {  // změnit na true pro vyzkoušení
+            Zlomek zlomek = Zlomek.NactiZlomekZConsole(input); // používáme statickou metodu
+            System.out.println("zlomek11: " + zlomek);
+            zlomek.ZkratitNaZakladniTvar();
+            System.out.println("Zlomek lze zkrátit na základní tvar: " + zlomek);
+        }
+        if (true) {  // změnit na true pro vyzkoušení
+            Zlomek zlomek = Zlomek.NactiZlomekZConsoleVar2(input); // používáme statickou metodu
+            System.out.println("zlomek: " + zlomek);
+            zlomek.ZkratitNaZakladniTvar();
+            System.out.println("Zlomek lze zkrátit na základní tvar: " + zlomek);
+        }
+
+
+
 
     }
 }
