@@ -50,7 +50,7 @@ public class Zlomek implements JednoCislo {
 
     @Override
     public double getJednoCislo() {
-        return citatel / jmenovatel;
+        return citatel / (double) jmenovatel;
     }
 
 
@@ -60,8 +60,11 @@ public class Zlomek implements JednoCislo {
             try {
                 System.out.println("Zadejte čitatele");
                 c = input.nextInt();
-            }catch (InputMismatchException e){
+            } catch (InputMismatchException e) {
                 System.out.println("Chybný formát");
+                input.next();
+            } catch (Exception e) {
+                System.out.println("Chyba");
                 input.next();
             }
         }
@@ -70,6 +73,8 @@ public class Zlomek implements JednoCislo {
             try {
                 System.out.println("Zadejte jmenovatele");
                 j = input.nextInt();
+                if (j == 0)
+                    System.out.println("Jmenovatel nemůže být 0");
             }catch (InputMismatchException e){
                 System.out.println("Chybný formát");
                 input.next();
@@ -92,9 +97,11 @@ public class Zlomek implements JednoCislo {
         return Parse(s);
 
     }
-    public static Zlomek Parse(String s){
-        int c = Integer.parseInt(s.split("/")[0]);
-        int j = Integer.parseInt(s.split("/")[1]);
+    public static Zlomek Parse(String s) {
+        String[] pole = s.split("/");
+
+        int c = Integer.parseInt(pole[0]);
+        int j = Integer.parseInt(pole[1]);
         return new Zlomek(c, j);
     }
 }

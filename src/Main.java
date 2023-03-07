@@ -3,7 +3,7 @@ import models.Kalkulacka;
 import models.Zlomek;
 
 import java.io.Console;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -167,14 +167,80 @@ public class Main {
             zlomek.ZkratitNaZakladniTvar();
             System.out.println("Zlomek lze zkrátit na základní tvar: " + zlomek);
         }
-        if (true) {  // změnit na true pro vyzkoušení
+        if (false) {  // změnit na true pro vyzkoušení
             Zlomek zlomek = Zlomek.NactiZlomekZConsoleVar2(input); // používáme statickou metodu
             System.out.println("zlomek: " + zlomek);
             zlomek.ZkratitNaZakladniTvar();
             System.out.println("Zlomek lze zkrátit na základní tvar: " + zlomek);
         }
 
+        // kolekce
+        List<Integer> listInt = new ArrayList<>();
+        listInt.add(1);
+        listInt.add(3);
+        for (int i = 0; i < 100; i++) {
+            listInt.add(i * 50);
+        }
 
+        int sum = 0;
+        for (Integer cislo :
+                listInt) {
+            sum += cislo;
+        }
+        System.out.println(sum);
+        int sum2 = listInt.stream().mapToInt(a -> a).sum();
+        System.out.println(sum2);
+
+        List<Zlomek> listZlomku = new ArrayList<>();
+        listZlomku.add(new Zlomek(10, 3));
+        listZlomku.add(new Zlomek(15, 3));
+        listZlomku.add(new Zlomek(9, 3));
+
+        OptionalInt maxCitatelu = listZlomku
+                .stream()
+                .mapToInt(x -> x.getCitatel())
+                .max();
+        System.out.println(maxCitatelu.getAsInt());
+
+        OptionalDouble avgCitatelu = listZlomku
+                .stream()
+                .mapToDouble(x -> x.getCitatel())
+                .average();
+        System.out.println("průměr:" + avgCitatelu.getAsDouble());
+
+        double sumZlomku = listZlomku
+                .stream()
+                .mapToDouble(x -> x.getJednoCislo())
+                .sum();
+        System.out.println("suma: " + sumZlomku);
+        double sumZlomku2 = listZlomku
+                .stream()
+                .mapToDouble(x -> x.getCitatel() / (double) x.getJmenovatel())
+                .sum();
+        System.out.println("suma2: " + sumZlomku2);
+
+
+        final String textKAnalyze = "Toto je ukázkový text pro frekvenční analýzu.";
+        HashMap<Character, Integer> frekvence = new HashMap<>();
+        for (int i = 0; i < textKAnalyze.length(); i++) {
+            char pismeno = textKAnalyze.charAt(i);
+            pismeno = Character.toUpperCase(pismeno); // udělám velké písmeno
+            if (pismeno == ' ')  // pokud je prázdný znak
+                continue;
+            if (!Character.isLetter(pismeno))    // pokud není písmeno
+                continue;
+            if (frekvence.containsKey(pismeno)) {
+                int pocet = frekvence.get(pismeno);
+                frekvence.put(pismeno, pocet + 1);
+            } else {
+                frekvence.put(pismeno, 1);
+            }
+        }
+
+        for (char znak :
+                frekvence.keySet()) {
+            System.out.println(znak + ": " + frekvence.get(znak));
+        }
 
 
     }
