@@ -1,6 +1,4 @@
-import models.Cislo;
-import models.Kalkulacka;
-import models.Zlomek;
+import models.*;
 
 import java.io.Console;
 import java.util.*;
@@ -136,6 +134,9 @@ public class Main {
         poleZlomku[2] = new Zlomek(1, 5);
         poleZlomku[3] = new Zlomek(1, 6);
 
+        for (int i = 0; i < poleZlomku.length; i++) {
+            System.out.println(poleZlomku[i]);
+        }
 
         Zlomek zlomekVytazenyZPole = poleZlomku[2];
 
@@ -180,6 +181,9 @@ public class Main {
         listInt.add(3);
         for (int i = 0; i < 100; i++) {
             listInt.add(i * 50);
+        }
+        for (int i = 0; i < listInt.size(); i++) {
+            listInt.get(i);
         }
 
         int sum = 0;
@@ -236,11 +240,59 @@ public class Main {
                 frekvence.put(pismeno, 1);
             }
         }
-
+        
         for (char znak :
                 frekvence.keySet()) {
             System.out.println(znak + ": " + frekvence.get(znak));
         }
+
+        Meridlo meridlo1 = new Meridlo(1, "Teploměr", "°C");
+        Pocitac pocitac1 = new Pocitac(2, "Dell", "Intel");
+
+        List<Zarizeni> seznamZarizeni = new ArrayList<>();
+        seznamZarizeni.add(meridlo1);
+        seznamZarizeni.add(pocitac1);
+
+        Zarizeni zarizeni1 = seznamZarizeni.get(0);
+        if (zarizeni1 instanceof Meridlo) {   // zeptám se zda je zařízení meřidlo
+            String jednotkaMeridla = ((Meridlo) zarizeni1).getJednotka();
+            Meridlo meridlo = (Meridlo) zarizeni1;
+        } else if (zarizeni1 instanceof Pocitac) {
+
+        }
+
+
+        List<IZarizeni> seznamZarizeniDve = new ArrayList<>();
+        seznamZarizeniDve.add(meridlo1);
+        seznamZarizeniDve.add(pocitac1);
+
+        IZarizeni iZarizeni1 = seznamZarizeniDve.get(0);
+
+
+        List<Pocitac> seznamPocitacu = new ArrayList<>();
+        seznamPocitacu.add(pocitac1);
+        //seznamPocitacu.add(meridlo1);
+
+        MeridloSDaty<Integer> teplomerVKancelari = new MeridloSDaty<>(1, "teploměr", "°C");
+        teplomerVKancelari.ulozHodnotu(23);
+        teplomerVKancelari.ulozHodnotu(22);
+        teplomerVKancelari.ulozHodnotu(24);
+
+
+        MeridloSDaty<Float> teplomerVeSklepe = new MeridloSDaty<>(2, "teploměr2", "°C");
+        teplomerVeSklepe.ulozHodnotu(14.3f);
+        teplomerVeSklepe.ulozHodnotu(14.8f);
+        teplomerVeSklepe.ulozHodnotu(15.1f);
+
+
+        MeridloSDaty<HodnotaSCasem<Integer>> teplomerVeSkladu =
+                new MeridloSDaty<>(3, "teploměrSklad", "°C");
+
+        teplomerVeSkladu.ulozHodnotu(new HodnotaSCasem<>(16));
+
+        teplomerVeSkladu.ulozHodnotu(new HodnotaSCasem<>(17));
+
+        teplomerVeSkladu.ulozHodnotu(new HodnotaSCasem<>(16));
 
 
     }

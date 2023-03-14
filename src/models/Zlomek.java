@@ -66,6 +66,8 @@ public class Zlomek implements JednoCislo {
             } catch (Exception e) {
                 System.out.println("Chyba");
                 input.next();
+            } finally {
+                System.out.println("finally");
             }
         }
         int j = 0;
